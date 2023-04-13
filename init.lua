@@ -1,4 +1,5 @@
 -- Install packer
+local fb_actions = require "telescope".extensions.file_browser.actions
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -10,9 +11,70 @@ end
 require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
-  use 'github/copilot.vim'
   use 'sainnhe/edge'
+  use 'joshdick/onedark.vim'
   use 'nvim-telescope/telescope-file-browser.nvim'
+  use 'jiangmiao/auto-pairs'
+  use {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require('copilot').setup({
+        panel = {
+          enabled = true,
+          auto_refresh = false,
+          keymap = {
+            jump_prev = "[[",
+            jump_next = "]]",
+            accept = "<CR>",
+            refresh = "gr",
+            open = "<M-CR>"
+          },
+          layout = {
+            position = "bottom", -- | top | left | right
+            ratio = 0.4
+          },
+        },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          debounce = 75,
+          keymap = {
+            accept = "<Tab>",
+            accept_word = false,
+            accept_line = false,
+            next = "<C-k>",
+            prev = "<C-j>",
+            dismiss = "<M-]>",
+          },
+        },
+        filetypes = {
+          yaml = false,
+          typescript = true,
+          markdown = true,
+          cucumber = true,
+          help = false,
+          gitcommit = true,
+          gitrebase = false,
+          hgcommit = false,
+          svn = false,
+          cvs = false,
+          ["."] = true,
+        },
+        copilot_node_command = 'node', -- Node.js version must be > 16.x
+        server_opts_overrides = {},
+      })
+    end
+  }
+
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      -- 'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    },
+    tag = 'nightly' -- optional, updated every week. (see issue #1193)
+  }
 
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -39,6 +101,7 @@ require('packer').startup(function(use)
     run = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
+    tag = "v0.8.1",
   }
 
   use { -- Additional text objects via treesitter
@@ -51,11 +114,11 @@ require('packer').startup(function(use)
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
 
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+  use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
+  use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
+  use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -103,6 +166,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 -- [[ Setting options ]]
+--
 -- See `:help vim.o`
 
 -- Set highlight on search
@@ -214,10 +278,10 @@ require("telescope").setup {
     file_browser = {
       theme = "ivy",
       -- disables netrw and use telescope-file-browser in its place
-      hijack_netrw = true,
+      hijack_netrw = false,
       mappings = {
         ["i"] = {
-          -- your custom insert mode mappings
+          ["<c-y>"] = fb_actions.create_from_prompt,
         },
         ["n"] = {
           -- your custom normal mode mappings
@@ -235,7 +299,8 @@ pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader><Space>', ':w<cr>')
+vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
@@ -254,9 +319,12 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help' },
+  ensure_installed = { 'c', 'cpp', 'go', 'python', 'rust', 'typescript', 'help' },
 
-  highlight = { enable = true },
+  highlight = {
+    enable = true,
+    disable = { 'lua' },
+  },
   indent = { enable = true, disable = { 'python' } },
   incremental_selection = {
     enable = true,
@@ -346,7 +414,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-  vim.keymap.set('n', '<leader><space>', ':w<cr>')
+  -- vim.keymap.set('n', '<leader><space>', ':w<cr>')
   vim.keymap.set('n', '<C-s>', ':w<cr>')
 
   -- See `:help K` for why this keymap
@@ -384,14 +452,72 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   tsserver = {},
-
-  sumneko_lua = {
+  lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
   },
 }
+
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    adaptive_size = true,
+    mappings = {
+      list = {
+        { key = "u", action = "dir_up" },
+      },
+    },
+    float = {
+      enable = true,
+      quit_on_focus_loss = true,
+    },
+  },
+  renderer = {
+    icons = {
+      webdev_colors = true,
+      git_placement = "before",
+      modified_placement = "after",
+      padding = " ",
+      symlink_arrow = " ➛ ",
+      show = {
+        file = true,
+        folder = true,
+        folder_arrow = true,
+        git = true,
+        modified = true,
+      },
+      glyphs = {
+        default = "",
+        symlink = "▸",
+        modified = "+",
+        folder = {
+          arrow_closed = "▸",
+          arrow_open = "▾",
+          default = "",
+          open = "",
+          empty = "",
+          empty_open = "",
+          symlink = "▸",
+          symlink_open = "▸",
+        },
+        git = {
+          unstaged = "○",
+          staged = "●",
+          unmerged = "⊜",
+          renamed = "⊙",
+          untracked = "⊕",
+          deleted = "⊗",
+          ignored = "⊘",
+        },
+      },
+    },
+  },
+  filters = {
+    dotfiles = false,
+  },
+})
 
 -- Setup neovim lua configuration
 require('neodev').setup()
@@ -467,7 +593,7 @@ cmp.setup {
 }
 
 
--- Setup vim default 
+-- Setup vim default
 vim.opt.shell = '/bin/zsh'
 vim.opt.termguicolors = true
 vim.opt.background = 'light'
@@ -478,5 +604,8 @@ vim.keymap.set('n', '<leader>s', "<cmd>split<cr>", { desc = "Horizontal [s]plit"
 vim.keymap.set('n', '<leader>sv', "<cmd>vert split<cr>", { desc = "[V]ertical split" })
 vim.keymap.set('n', '<leader>sj', "<c-w>w", { desc = "Next window" })
 vim.keymap.set('n', '<leader>sk', "<c-w>w", { desc = "Previous windor" })
+vim.keymap.set('n', '<leader>t', "<cmd>tabe<cr>", { desc = "Open a new [T]ab" })
+vim.keymap.set('n', '<leader>k', "<cmd>NvimTreeFindFileToggle<cr>", { desc = "Open Nvim Tree Files" })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
