@@ -13,8 +13,10 @@ require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'sainnhe/edge'
   use 'joshdick/onedark.vim'
+  use { "catppuccin/nvim", as = "catppuccin" }
   use 'nvim-telescope/telescope-file-browser.nvim'
   use 'jiangmiao/auto-pairs'
+  use 'github/copilot.vim'
   use {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -109,12 +111,20 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
+  -- Flutter related plugins
+  use {
+    'akinsho/flutter-tools.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'stevearc/dressing.nvim',   -- optional for vim.ui.select
+    },
+  }
+
   -- Git related plugins
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
 
-  use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
@@ -194,7 +204,6 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme edge]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -230,7 +239,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = 'edge',
+    theme = 'catppuccin',
     component_separators = '|',
     section_separators = '',
   },
@@ -293,6 +302,9 @@ require("telescope").setup {
 -- To get telescope-file-browser loaded and working with telescope,
 -- you need to call load_extension, somewhere after setup function:
 require("telescope").load_extension "file_browser"
+
+-- Configure Flutter LSP
+require("flutter-tools").setup {} -- use defaults
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -553,6 +565,14 @@ require('fidget').setup()
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 
+lspconfig = require ('lspconfig')
+
+lspconfig.dartls.setup {
+    cmd = {'dart', '~/snap/flutter/common/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp'},
+    filetypes = {'dart'},
+    root_dir = lspconfig.util.root_pattern('.git', 'pubspec.yaml', 'pubspec.lock'),
+  }
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -592,11 +612,57 @@ cmp.setup {
   },
 }
 
+require("catppuccin").setup({
+  flavour = "macchiato",   -- latte, frappe, macchiato, mocha
+  background = {
+                       -- :h background
+    light = "latte",
+    dark = "frappe",
+  },
+  transparent_background = false,
+  show_end_of_buffer = false,   -- show the '~' characters after the end of buffers
+  term_colors = false,
+  dim_inactive = {
+    enabled = false,
+    shade = "dark",
+    percentage = 0.15,
+  },
+  no_italic = false,   -- Force no italic
+  no_bold = false,     -- Force no bold
+  styles = {
+    comments = { "italic" },
+    conditionals = { "italic" },
+    loops = {},
+    functions = {},
+    keywords = {},
+    strings = {},
+    variables = {},
+    numbers = {},
+    booleans = {},
+    properties = {},
+    types = {},
+    operators = {},
+  },
+  color_overrides = {},
+  custom_highlights = {},
+  integrations = {
+    cmp = true,
+    gitsigns = true,
+    nvimtree = true,
+    telescope = true,
+    notify = false,
+    mini = false,
+    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+  },
+})
+
+-- setup must be called before loading
+vim.cmd.colorscheme "catppuccin"
+
 
 -- Setup vim default
 vim.opt.shell = '/bin/zsh'
 vim.opt.termguicolors = true
-vim.opt.background = 'light'
 vim.opt.clipboard = 'unnamedplus,unnamed'
 vim.opt.swapfile = false
 
@@ -606,6 +672,7 @@ vim.keymap.set('n', '<leader>sj', "<c-w>w", { desc = "Next window" })
 vim.keymap.set('n', '<leader>sk', "<c-w>w", { desc = "Previous windor" })
 vim.keymap.set('n', '<leader>t', "<cmd>tabe<cr>", { desc = "Open a new [T]ab" })
 vim.keymap.set('n', '<leader>k', "<cmd>NvimTreeFindFileToggle<cr>", { desc = "Open Nvim Tree Files" })
+vim.opt.clipboard = 'unnamedplus,unnamed'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
