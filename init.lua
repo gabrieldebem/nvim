@@ -11,8 +11,6 @@ end
 require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
-  use 'sainnhe/edge'
-  use 'joshdick/onedark.vim'
   use { "catppuccin/nvim", as = "catppuccin" }
   use 'nvim-telescope/telescope-file-browser.nvim'
   use 'jiangmiao/auto-pairs'
@@ -613,7 +611,7 @@ cmp.setup {
 }
 
 require("catppuccin").setup({
-  flavour = "macchiato",   -- latte, frappe, macchiato, mocha
+  flavour = "latte",   -- latte, frappe, macchiato, mocha
   background = {
                        -- :h background
     light = "latte",
