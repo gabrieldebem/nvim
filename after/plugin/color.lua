@@ -1,5 +1,5 @@
 require("catppuccin").setup({
-    flavour = "frappe", -- latte, frappe, macchiato, mocha
+    flavour = "latte", -- latte, frappe, macchiato, mocha
     background = {
         light = "latte",
         dark = "frappe",
@@ -19,10 +19,10 @@ require("catppuccin").setup({
         comments = { "italic" },
         conditionals = { "italic" },
         loops = {},
-        functions = {},
+        functions = { "italic" },
         keywords = {},
-        strings = {},
-        variables = {},
+        strings = { "italic" },
+        variables = { "italic" },
         numbers = {},
         booleans = {},
         properties = {},

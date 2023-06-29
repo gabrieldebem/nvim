@@ -15,7 +15,7 @@ require("flutter-tools").setup {
     run_via_dap = true,
     exception_breakpoints = {},
   },
-  flutter_path = "/home/gabriel/snap/flutter/common/flutter/bin/flutter",
+  flutter_path = "/home/gabriel/flutter/bin/flutter",
   flutter_lookup_cmd = nil, -- example "dirname $(which flutter)" or "asdf where flutter"
   fvm = false, -- takes priority over path, uses <workspace>/.fvm/flutter_sdk if enabled
   widget_guides = {
@@ -57,7 +57,7 @@ require("flutter-tools").setup {
     settings = {
       showTodos = true,
       completeFunctionCalls = true,
-      analysisExcludedFolders = {"/home/gabriel/snap/flutter/common/flutter/bin/flutter"},
+      analysisExcludedFolders = {"/home/gabriel/flutter/bin/flutter"},
       renameFilesWithClasses = "prompt", -- "always"
       enableSnippets = true,
       updateImportsOnRename = true, -- Whether to update imports and other directives when files are renamed. Required for `FlutterRename` command.

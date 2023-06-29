@@ -69,6 +69,4 @@ return require('packer').startup(function(use)
       'stevearc/aerial.nvim',
       config = function() require('aerial').setup() end
     }
-
-    use 'lewis6991/gitsigns.nvim'
 end)
