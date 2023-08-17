@@ -1,49 +1,48 @@
-require("catppuccin").setup({
-    flavour = "latte", -- latte, frappe, macchiato, mocha
-    background = {
-        light = "latte",
-        dark = "frappe",
+require('github-theme').setup({
+    options = {
+        compile_path = vim.fn.stdpath('cache') .. '/github-theme',
+        compile_file_suffix = '_compiled', -- Compiled file suffix
+        hide_end_of_buffer = true,     -- Hide the '~' character at the end of the buffer for a cleaner look
+        hide_nc_statusline = true,     -- Override the underline style for non-active statuslines
+        transparent = true,            -- Disable setting background
+        terminal_colors = true,        -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
+        dim_inactive = false,          -- Non focused panes set to alternative background
+        module_default = true,         -- Default enable value for modules
+        styles = {                     -- Style to be applied to different syntax groups
+            comments = 'italic',       -- Value is any valid attr-list value `:help attr-list`
+            functions = 'italic,bold',
+            keywords = 'italic,bold',
+            variables = 'bold',
+            conditionals = 'NONE',
+            constants = 'bold',
+            numbers = 'NONE',
+            operators = 'NONE',
+            strings = 'italic',
+            types = 'NONE',
+        },
+        inverse = { -- Inverse highlight for different types
+            match_paren = false,
+            visual = false,
+            search = false,
+        },
+        darken = { -- Darken floating windows and sidebar-like windows
+            floats = false,
+            sidebars = {
+                enable = true,
+                list = {}, -- Apply dark background to specific windows
+            },
+        },
+        modules = {
+            indent_blankline = {
+                enabled = true,
+                colored_indent_levels = false,
+            },
+        },
     },
-    transparent_background = true,
-    show_end_of_buffer = true, -- show the '~' characters after the end of buffers
-    term_colors = true,
-    dim_inactive = {
-        enabled = false,
-        shade = "dark",
-        percentage = 0.15,
-    },
-    no_italic = false, -- Force no italic
-    no_bold = false,  -- Force no bold
-    no_underline = false, -- Force no underline
-    styles = {
-        comments = { "italic" },
-        conditionals = { "italic" },
-        loops = {},
-        functions = { "italic" },
-        keywords = {},
-        strings = { "italic" },
-        variables = { "italic" },
-        numbers = {},
-        booleans = {},
-        properties = {},
-        types = {},
-        operators = {},
-    },
-    color_overrides = {},
-    custom_highlights = {},
-    integrations = {
-        cmp = true,
-        gitsigns = true,
-        nvimtree = true,
-        telescope = true,
-        notify = false,
-        mini = false,
-        aerial = true,
-        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-    },
+    palettes = {},
+    specs = {},
+    groups = {},
 })
 
--- vim.cmd("hi! Normal guibg=NONE ctermbg=NONE")
-
 -- setup must be called before loading
-vim.cmd.colorscheme "catppuccin"
+vim.cmd('colorscheme github_light_colorblind')
