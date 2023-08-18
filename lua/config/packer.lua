@@ -8,10 +8,8 @@ return require('packer').startup(function(use)
     }
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use 'mg979/vim-visual-multi'
-    use 'tpope/vim-fugitive'
-    use 'tpope/vim-rhubarb'
     use 'lewis6991/gitsigns.nvim'
-
+    use 'rcarriga/nvim-notify'
     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v2.x',
@@ -25,6 +23,31 @@ return require('packer').startup(function(use)
         }
     }
 
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+
+
+    use { 'L3MON4D3/LuaSnip' }
+    use {
+        'hrsh7th/nvim-cmp',
+        config = function()
+            require 'cmp'.setup {
+                snippet = {
+                    expand = function(args)
+                        require 'luasnip'.lsp_expand(args.body)
+                    end
+                },
+
+                sources = {
+                    { name = 'luasnip' },
+                    -- more sources
+                },
+            }
+        end
+    }
+    use { 'saadparwaiz1/cmp_luasnip' }
+
     use {
         "NeogitOrg/neogit",
         requires = {
@@ -32,12 +55,18 @@ return require('packer').startup(function(use)
             { "nvim-telescope/telescope.nvim" },
             { "sindrets/diffview.nvim" },
         },
-        config = true
     }
 
     use 'nvim-lualine/lualine.nvim'
     use 'lukas-reineke/indent-blankline.nvim'
-    use 'github/copilot.vim'
+    use { "zbirenbaum/copilot.lua" }
+    use {
+        "zbirenbaum/copilot-cmp",
+        after = { "copilot.lua" },
+        config = function()
+            require("copilot_cmp").setup()
+        end
+    }
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
@@ -51,7 +80,10 @@ return require('packer').startup(function(use)
         },
     }
 
-    use 'mfussenegger/nvim-dap'
+    use "mfussenegger/nvim-dap"
+    use "rcarriga/nvim-dap-ui"
+    use "theHamsta/nvim-dap-virtual-text"
+    use "nvim-telescope/telescope-dap.nvim"
 
     use {
         'stevearc/aerial.nvim',
@@ -70,9 +102,6 @@ return require('packer').startup(function(use)
             "nvim-tree/nvim-web-devicons",
         },
         after = "nvim-web-devicons",
-        config = function()
-            require("barbecue").setup()
-        end,
     })
 
     use "sindrets/diffview.nvim"
@@ -82,27 +111,8 @@ return require('packer').startup(function(use)
         branch = "v3.x",
         requires = {
             "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "nvim-tree/nvim-web-devicons",
             "MunifTanjim/nui.nvim",
-            {
-                's1n7ax/nvim-window-picker',
-                tag = "v1.*",
-                config = function()
-                    require 'window-picker'.setup({
-                        autoselect_one = true,
-                        include_current = false,
-                        filter_rules = {
-                            bo = {
-                                filetype = { 'neo-tree', "neo-tree-popup", "notify" },
-                                buftype = { 'terminal', "quickfix" },
-                            },
-                        },
-                        other_win_hl_color = '#e35e4f',
-                    })
-                end,
-            }
         },
-        config = function()
-        end
     }
 end)
