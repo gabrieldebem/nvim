@@ -58,7 +58,8 @@ return require('packer').startup(function(use)
     }
 
     use 'nvim-lualine/lualine.nvim'
-    use 'lukas-reineke/indent-blankline.nvim'
+    use 'arkav/lualine-lsp-progress'
+    use 'nvimdev/indentmini.nvim'
     use { "zbirenbaum/copilot.lua" }
     use {
         "zbirenbaum/copilot-cmp",

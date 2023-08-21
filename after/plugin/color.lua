@@ -44,4 +44,4 @@ require('github-theme').setup({
     groups = {},
 })
 
-vim.cmd('colorscheme github_light_colorblind')
+vim.cmd('colorscheme github_light')
