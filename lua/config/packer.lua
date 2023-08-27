@@ -2,6 +2,8 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
+    use 'github/copilot.vim'
+
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
         requires = { { 'nvim-lua/plenary.nvim' } }
@@ -60,14 +62,6 @@ return require('packer').startup(function(use)
     use 'nvim-lualine/lualine.nvim'
     use 'arkav/lualine-lsp-progress'
     use 'nvimdev/indentmini.nvim'
-    use { "zbirenbaum/copilot.lua" }
-    use {
-        "zbirenbaum/copilot-cmp",
-        after = { "copilot.lua" },
-        config = function()
-            require("copilot_cmp").setup()
-        end
-    }
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end

@@ -61,7 +61,6 @@ vim.keymap.set("n", "\\fd", "<cmd>FlutterDevices<cr>", { desc = "[F]lutter [D]ev
 
 -- Flash keymap
 vim.keymap.set({ 'n', 'x', 'o' }, 's', function() require("flash").jump() end, { desc = "Flash [s]earch" })
-vim.keymap.set({ 'n', 'x', 'o' }, 'S', function() require("flash").treesitter() end, { desc = "Flash backward [S]earch" })
 
 -- Telescope keymap
 vim.keymap.set('n', '<leader>a', '<cmd>Telescope aerial<CR>')
@@ -81,6 +80,7 @@ vim.keymap.set("n", "<leader>ra", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 vim.keymap.set('n', '<leader><Space>', ':w<cr>')
 vim.keymap.set('n', '<leader>Q', "<cmd>q<cr>")
 vim.keymap.set('n', '<leader>tc', '<cmd>tabc<cr>', { desc = '[T]ab [C]lose' })
+vim.keymap.set('n', '<leader>tt', '<cmd>tabe term://zsh<cr>', { desc = '[T]ab [T]erm' })
 vim.keymap.set('n', '<leader>H', '<cmd>nohlsearch<cr>', { desc = 'Clear [H]ighlight' })
 
 -- Vim options
