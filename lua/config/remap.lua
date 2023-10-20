@@ -5,7 +5,7 @@ local nmap = function(keys, func, desc)
     if desc then
         desc = 'LSP: ' .. desc
     end
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    vim.keymap.set('n', keys, func, { desc = desc })
 end
 
 -- Diagnostic keymap
@@ -33,6 +33,8 @@ nmap('<leader>=', function()
         vim.lsp.buf.formatting()
     end
 end, 'Format current buffer with LSP')
+
+nmap('<leader>FF', '<cmd>!php-cs-fixer --rules=@PSR12 --using-cache=no fix % | php-cs-fixer --rules=@Symfony --using-cache=no fix %<cr>')
 
 -- Window keymap
 vim.keymap.set('n', '<leader>s', "<cmd>split<cr>", { desc = "Horizontal [s]plit" })
@@ -87,5 +89,6 @@ vim.keymap.set('n', '<leader>H', '<cmd>nohlsearch<cr>', { desc = 'Clear [H]ighli
 vim.opt.shell = '/bin/zsh'
 vim.opt_local.iskeyword:append('$')
 vim.opt.clipboard = 'unnamedplus,unnamed'
+vim.opt.smartindent = true
 
 vim.cmd.set('number', 'relativenumber')

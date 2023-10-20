@@ -88,7 +88,6 @@ return require('packer').startup(function(use)
     use 'folke/flash.nvim'
     use 'tpope/vim-commentary'
     use 'tpope/vim-sensible'
-    use 'projekt0n/github-nvim-theme'
     use({
         "utilyre/barbecue.nvim",
         tag = "*",
@@ -110,4 +109,6 @@ return require('packer').startup(function(use)
             "MunifTanjim/nui.nvim",
         },
     }
+
+    use "folke/tokyonight.nvim"
 end)

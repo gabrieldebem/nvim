@@ -1,47 +1,22 @@
-require('github-theme').setup({
-    options = {
-        compile_path = vim.fn.stdpath('cache') .. '/github-theme',
-        compile_file_suffix = '_compiled',
-        hide_end_of_buffer = true,
-        hide_nc_statusline = true,
-        transparent = true,
-        terminal_colors = true,
-        dim_inactive = true,
-        module_default = true,
-        styles = {
-            comments = 'italic',
-            functions = 'italic,bold',
-            keywords = 'italic,bold',
-            variables = 'bold',
-            conditionals = 'NONE',
-            constants = 'bold',
-            numbers = 'NONE',
-            operators = 'NONE',
-            strings = 'italic',
-            types = 'NONE',
-        },
-        inverse = {
-            match_paren = false,
-            visual = false,
-            search = false,
-        },
-        darken = {
-            floats = true,
-            sidebars = {
-                enable = true,
-                list = {},
-            },
-        },
-        modules = {
-            indent_blankline = {
-                enabled = false,
-                colored_indent_levels = true,
-            },
-        },
+require("tokyonight").setup({
+    style = "moon",       -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+    light_style = "day",  -- The theme is used when the background is set to light
+    transparent = true,   -- Enable this to disable setting the background color
+    terminal_colors = true, -- Configure the colors used when opening a `:terminal` in [Neovim](https://github.com/neovim/neovim)
+    styles = {
+        comments = { italic = true },
+        keywords = { italic = true },
+        functions = {},
+        variables = { italic = true },
+        -- Background styles. Can be "dark", "transparent" or "normal"
+        sidebars = "dark",
+        floats = "dark",
     },
-    palettes = {},
-    specs = {},
-    groups = {},
+    sidebars = { "qf", "help" },    -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
+    day_brightness = 0.3,           -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
+    hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+    dim_inactive = false,           -- dims inactive windows
+    lualine_bold = true,            -- When `true`, section headers in the lualine theme will be bold
 })
 
-vim.cmd('colorscheme github_dark')
+vim.cmd [[colorscheme tokyonight]]
