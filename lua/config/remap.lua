@@ -34,7 +34,8 @@ nmap('<leader>=', function()
     end
 end, 'Format current buffer with LSP')
 
-nmap('<leader>FF', '<cmd>!php-cs-fixer --rules=@PSR12 --using-cache=no fix % | php-cs-fixer --rules=@Symfony --using-cache=no fix %<cr>')
+-- nmap('<leader>FF', '<cmd>!php-cs-fixer --rules=@PSR12 --using-cache=no fix % | php-cs-fixer --rules=@Symfony --using-cache=no fix %<cr>')
+nmap('<leader>FF', '<cmd>!phpcbf --standard="PSR12" % | phpcbf --standard="PSR1" % | phpcbf --standard="PSR2" %<cr>')
 
 -- Window keymap
 vim.keymap.set('n', '<leader>s', "<cmd>split<cr>", { desc = "Horizontal [s]plit" })
