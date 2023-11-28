@@ -5,7 +5,7 @@ return require('packer').startup(function(use)
   use 'github/copilot.vim'
 
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',
+    'nvim-telescope/telescope.nvim', tag = '0.1.4',
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
@@ -111,4 +111,6 @@ return require('packer').startup(function(use)
   }
 
   use "folke/tokyonight.nvim"
+  use "hrsh7th/nvim-cmp"
+
 end)
