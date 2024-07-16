@@ -54,7 +54,6 @@ return require('packer').startup(function(use)
 
   use 'nvim-lualine/lualine.nvim'
   use 'arkav/lualine-lsp-progress'
-  use 'nvimdev/indentmini.nvim'
   use {
     "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
@@ -103,7 +102,7 @@ return require('packer').startup(function(use)
     },
   }
 
-  use { "ellisonleao/gruvbox.nvim" }
+  use "rose-pine/neovim"
 
   use "hrsh7th/nvim-cmp"
 end)

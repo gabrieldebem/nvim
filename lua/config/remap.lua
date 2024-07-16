@@ -44,7 +44,8 @@ vim.keymap.set('n', '<leader>sj', "<c-w>w", { desc = "Next window" })
 vim.keymap.set('n', '<leader>sk', "<c-w>w", { desc = "Previous windor" })
 
 -- Neogit keymap
-vim.keymap.set('n', '<leader>gg', "<cmd>Neogit<cr>", { desc = "[G]o to [G]it" })
+vim.keymap.set('n', '<leader>gg', "<cmd>G<cr>", { desc = "[G]o to [G]it" })
+vim.keymap.set('n', '<leader>gs', "<cmd>G status<cr>", { desc = "[G]it [S]tatus" })
 
 -- Neotree keymap
 vim.keymap.set('n', '<leader>rc', "<cmd>Neotree toggle<cr>")
