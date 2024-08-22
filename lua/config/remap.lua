@@ -94,3 +94,4 @@ vim.opt.clipboard = 'unnamedplus,unnamed'
 vim.opt.smartindent = true
 
 vim.cmd.set('number', 'relativenumber')
+vim.keymap.set('n', '<leader>cc', "<cmd>bufdo bd<cr>", { desc = "Buffer [C]lose" })

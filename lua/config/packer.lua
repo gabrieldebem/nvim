@@ -105,4 +105,6 @@ return require('packer').startup(function(use)
   use "rose-pine/neovim"
 
   use "hrsh7th/nvim-cmp"
+
+  use "lukas-reineke/indent-blankline.nvim"
 end)
