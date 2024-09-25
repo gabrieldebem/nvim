@@ -1,9 +1,9 @@
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "lua", "php", "dart", "markdown" },
+  ensure_installed = { "lua", "php", "dart", "markdown", "html" },
   sync_install = true,
   highlight = {
-    enable = true,     -- This is a MUST
-    additional_vim_regex_highlighting = { "lua", "php", "dart", "markdown" },
+    enable = true,
+    additional_vim_regex_highlighting = { "lua", "php", "dart", "markdown", "blade" },
     disable = { "bash" },
   },
   indent = {
