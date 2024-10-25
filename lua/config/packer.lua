@@ -90,11 +90,7 @@ return require('packer').startup(function(use)
     after = "nvim-web-devicons",
   })
 
-  -- • `<leader>co`: Choose the OURS version of the conflict.
-  -- • `<leader>ct`: Choose the THEIRS version of the conflict.
-  -- • `<leader>cb`: Choose the BASE version of the conflict.
-  -- • `<leader>ca`: Choose all versions of the conflict (effectively
-  use "sindrets/diffview.nvim"
+  use { 'akinsho/git-conflict.nvim', tag = "*" }
 
   use {
     "nvim-neo-tree/neo-tree.nvim",
