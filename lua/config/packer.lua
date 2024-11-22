@@ -108,5 +108,7 @@ return require('packer').startup(function(use)
 
   use "lukas-reineke/indent-blankline.nvim"
 
+  use 'wakatime/vim-wakatime'
+  
   use "jwalton512/vim-blade"
 end)
