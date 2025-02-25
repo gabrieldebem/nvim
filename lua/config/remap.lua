@@ -92,6 +92,7 @@ vim.opt.shell = '/bin/zsh'
 vim.opt_local.iskeyword:append('$')
 vim.opt.clipboard = 'unnamedplus,unnamed'
 vim.opt.smartindent = true
+
 -- Em ambientes wayland o clipboard padrão é o wl-copy, mas não funcionou muito bem
 vim.g.clipboard = {
   copy = {
@@ -106,3 +107,17 @@ vim.g.clipboard = {
 
 vim.cmd.set('number', 'relativenumber')
 vim.keymap.set('n', '<leader>cc', "<cmd>bufdo bd<cr>", { desc = "Buffer [C]lose" })
+
+-- Git Conflicts
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'GitConflictDetected',
+  callback = function()
+    vim.notify('Conflict detected in '..vim.fn.expand('<afile>'))
+    vim.keymap.set('n', 'cww', function()
+      engage.conflict_buster()
+      create_buffer_local_mappings()
+    end)
+  end
+})
+vim.keymap.set('n', '<leader>cr', '<cmd>GitConflictListQf<cr>', { desc = 'Git [C]onflict [R]esolve' })
+

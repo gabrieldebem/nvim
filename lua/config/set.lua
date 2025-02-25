@@ -19,10 +19,19 @@ cmp.setup {
 }
 
 vim.opt.nu = true
+
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "php", "go" },
+  callback = function()
+    vim.bo.expandtab = true
+    vim.bo.shiftwidth = 4
+    vim.bo.tabstop = 4
+  end,
+})
 vim.opt.smartindent = true
 vim.opt.swapfile = false
 vim.opt.backup = false
