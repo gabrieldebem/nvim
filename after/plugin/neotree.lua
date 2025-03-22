@@ -1,5 +1,5 @@
 require('neo-tree').setup({
-    close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+    close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
     popup_border_style = "rounded",
     enable_git_status = true,
     enable_diagnostics = true,
@@ -45,7 +45,6 @@ require('neo-tree').setup({
                 modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
                 deleted   = "✖", -- this can only be used in the git_status source
                 renamed   = "󰁕", -- this can only be used in the git_status source
-                -- Status type
                 untracked = "",
                 ignored   = "",
                 unstaged  = "󰄱",
@@ -56,7 +55,7 @@ require('neo-tree').setup({
     },
     commands = {},
     window = {
-        position = "left",
+        position = "right",
         width = 40,
         mapping_options = {
             noremap = true,
@@ -201,4 +200,4 @@ vim.fn.sign_define("DiagnosticSignInfo",
 vim.fn.sign_define("DiagnosticSignHint",
     { text = "󰌵", texthl = "DiagnosticSignHint" });
 
-vim.cmd([[nnoremap \ :Neotree reveal<cr>]]);
+vim.cmd([[nnoremap <space>\ :Neotree toggle<cr>]]);

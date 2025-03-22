@@ -3,6 +3,7 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'github/copilot.vim'
+  use 'CopilotC-Nvim/CopilotChat.nvim'
 
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.4',
@@ -102,13 +103,10 @@ return require('packer').startup(function(use)
     },
   }
 
-  use "rose-pine/neovim"
-
+  use "rebelot/kanagawa.nvim"
   use "hrsh7th/nvim-cmp"
-
   use "lukas-reineke/indent-blankline.nvim"
-
   use 'wakatime/vim-wakatime'
-
   use "jwalton512/vim-blade"
+  use 'vimwiki/vimwiki'
 end)

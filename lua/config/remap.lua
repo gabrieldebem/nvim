@@ -94,16 +94,16 @@ vim.opt.clipboard = 'unnamedplus,unnamed'
 vim.opt.smartindent = true
 
 -- Em ambientes wayland o clipboard padrão é o wl-copy, mas não funcionou muito bem
-vim.g.clipboard = {
-  copy = {
-    ["+"] = "xclip -selection clipboard",
-    ["*"] = "xclip -selection primary",
-  },
-  paste = {
-    ["+"] = "xclip -selection clipboard -o",
-    ["*"] = "xclip -selection primary -o",
-  },
-}
+-- vim.g.clipboard = {
+--   copy = {
+--     ["+"] = "xclip -selection clipboard",
+--     ["*"] = "xclip -selection primary",
+--   },
+--   paste = {
+--     ["+"] = "xclip -selection clipboard -o",
+--     ["*"] = "xclip -selection primary -o",
+--   },
+-- }
 
 vim.cmd.set('number', 'relativenumber')
 vim.keymap.set('n', '<leader>cc', "<cmd>bufdo bd<cr>", { desc = "Buffer [C]lose" })
@@ -120,4 +120,10 @@ vim.api.nvim_create_autocmd('User', {
   end
 })
 vim.keymap.set('n', '<leader>cr', '<cmd>GitConflictListQf<cr>', { desc = 'Git [C]onflict [R]esolve' })
-
+vim.keymap.set('n', '<leader>ch', '<cmd>CopilotChat<cr>', { desc = 'Copilot [Ch]at' })
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>ks",
+	":lua require('keep-it-secret').toggle()<CR>",
+	{ noremap = true, silent = true }
+)
