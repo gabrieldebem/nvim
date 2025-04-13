@@ -109,4 +109,13 @@ return require('packer').startup(function(use)
   use 'wakatime/vim-wakatime'
   use "jwalton512/vim-blade"
   use 'vimwiki/vimwiki'
+
+  use {
+    'pwntester/octo.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+  }
 end)
