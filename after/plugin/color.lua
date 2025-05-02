@@ -1,27 +1,38 @@
-require('kanagawa').setup({
-    compile = false,             -- enable compiling the colorscheme
-    undercurl = true,            -- enable undercurls
-    commentStyle = { italic = true },
-    functionStyle = {},
-    keywordStyle = { italic = true},
-    statementStyle = { bold = true },
-    typeStyle = {},
-    transparent = false,          -- do not set background color
-    dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
-    terminalColors = false,       -- define vim.g.terminal_color_{0,17}
-    colors = {                   -- add/modify theme and palette colors
-        palette = {},
-        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-    },
-    overrides = function(colors) -- add/modify highlights
-        return {}
-    end,
-    theme = "wave",              -- Load "wave" theme
-    background = {               -- map the value of 'background' option to a theme
-        dark = "wave",           -- try "dragon" !
-        light = "lotus"
-    },
-})
+-- require('kanagawa').setup({
+--   compile = false,
+--   undercurl = true,
+--   commentStyle = { italic = true },
+--   functionStyle = {},
+--   keywordStyle = { italic = true },
+--   statementStyle = { bold = true },
+--   typeStyle = { bold = true },
+--   transparent = false,
+--   dimInactive = false,
+--   terminalColors = false,
+--   colors = {
+--     palette = {},
+--     theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+--   },
+--   overrides = function(colors)
+--     return {}
+--   end,
+--   theme = "wave",
+--   background = {
+--     dark = "dragon",
+--     light = "lotus"
+--   },
+-- })
 
--- setup must be called before loading
-vim.cmd("colorscheme kanagawa")
+-- -- setup must be called before loading
+-- vim.cmd("colorscheme kanagawa")
+
+if vim.fn.has('termguicolors') == 1 then
+  vim.opt.termguicolors = true
+end
+
+vim.opt.background = 'light'
+
+vim.g.everforest_background = 'medium'
+vim.g.everforest_better_performance = 1
+
+vim.cmd('colorscheme everforest')

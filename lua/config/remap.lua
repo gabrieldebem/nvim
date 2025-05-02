@@ -127,3 +127,10 @@ vim.api.nvim_set_keymap(
 	":lua require('keep-it-secret').toggle()<CR>",
 	{ noremap = true, silent = true }
 )
+
+vim.g.copilot_proxy_strict_ssl = false
+vim.g.copilot_debug = true
+vim.g.copilot_browser = "/Applications/Firefox.app/Contents/MacOS/firefox"
+
+-- Only on MacOS
+vim.keymap.set('n', '<leader>lf', '<cmd>!open %:p<cr>', { desc = 'Open file in default browser' })

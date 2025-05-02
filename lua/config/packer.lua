@@ -7,7 +7,9 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.4',
-    requires = { { 'nvim-lua/plenary.nvim' } }
+    requires = {
+      { 'nvim-lua/plenary.nvim' },
+    }
   }
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
   use 'mg979/vim-visual-multi'
@@ -30,25 +32,8 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
 
-
   use { 'L3MON4D3/LuaSnip' }
-  use {
-    'hrsh7th/nvim-cmp',
-    config = function()
-      require 'cmp'.setup {
-        snippet = {
-          expand = function(args)
-            require 'luasnip'.lsp_expand(args.body)
-          end
-        },
-
-        sources = {
-          { name = 'luasnip' },
-          -- more sources
-        },
-      }
-    end
-  }
+  use { 'hrsh7th/nvim-cmp' }
   use { 'saadparwaiz1/cmp_luasnip' }
 
   use "tpope/vim-fugitive"
@@ -73,10 +58,7 @@ return require('packer').startup(function(use)
   use "theHamsta/nvim-dap-virtual-text"
   use "nvim-telescope/telescope-dap.nvim"
 
-  use {
-    'stevearc/aerial.nvim',
-    config = function() require('aerial').setup() end
-  }
+  use { 'stevearc/aerial.nvim' }
 
   use 'folke/flash.nvim'
   use 'tpope/vim-commentary'
@@ -104,9 +86,15 @@ return require('packer').startup(function(use)
   }
 
   use "rebelot/kanagawa.nvim"
-  use "hrsh7th/nvim-cmp"
   use "lukas-reineke/indent-blankline.nvim"
-  use 'wakatime/vim-wakatime'
+  -- use 'wakatime/vim-wakatime'
   use "jwalton512/vim-blade"
   use 'vimwiki/vimwiki'
+
+  use {
+    "vinnymeller/swagger-preview.nvim",
+    run = "npm i",
+  }
+
+  use "sainnhe/everforest"
 end)
