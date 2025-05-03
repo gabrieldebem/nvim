@@ -30,7 +30,7 @@ if vim.fn.has('termguicolors') == 1 then
   vim.opt.termguicolors = true
 end
 
-vim.opt.background = 'light'
+vim.opt.background = 'dark'
 
 vim.g.everforest_background = 'medium'
 vim.g.everforest_better_performance = 1
