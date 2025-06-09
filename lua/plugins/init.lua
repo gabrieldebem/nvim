@@ -25,7 +25,7 @@ return {
   { 'L3MON4D3/LuaSnip' },
   { 'saadparwaiz1/cmp_luasnip' },
 
-  "tpope/vim-fugitive",
+  'tpope/vim-fugitive',
 
   'arkav/lualine-lsp-progress',
 
@@ -61,5 +61,4 @@ return {
 
   'wakatime/vim-wakatime',
   "jwalton512/vim-blade",
-  'vimwiki/vimwiki',
 }
