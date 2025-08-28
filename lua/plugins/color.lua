@@ -1,31 +1,52 @@
 return {
-  "neanias/everforest-nvim",
-  version = false,
+  "EdenEast/nightfox.nvim",
+  priority = 1000,
   lazy = false,
-  priority = 1000, -- make sure to load this before all the other start plugins
-  -- Optional; default configuration will be used if setup isn't called.
   config = function()
-    require("everforest").setup({
-      background = "medium",
-      transparent_background_level = 0,
-      italics = false,
-      disable_italic_comments = false,
-      sign_column_background = "none",
-      ui_contrast = "low",
-      dim_inactive_windows = false,
-      diagnostic_text_highlight = false,
-      diagnostic_virtual_text = "coloured",
-      diagnostic_line_highlight = false,
-      spell_foreground = false,
-      show_eob = true,
-      float_style = "bright",
-      inlay_hints_background = "none",
-      ---@param highlight_groups Highlights
-      ---@param palette Palette
-      on_highlights = function(highlight_groups, palette) end,
-      ---@param palette Palette
-      colours_override = function(palette) end,
+    require('nightfox').setup({
+      options = {
+        -- Compiled file's destination location
+        compile_path = vim.fn.stdpath("cache") .. "/nightfox",
+        compile_file_suffix = "_compiled", -- Compiled file suffix
+        transparent = false,           -- Disable setting background
+        terminal_colors = true,        -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
+        dim_inactive = false,          -- Non focused panes set to alternative background
+        module_default = true,         -- Default enable value for modules
+        colorblind = {
+          enable = false,              -- Enable colorblind support
+          simulate_only = false,       -- Only show simulated colorblind colors and not diff shifted
+          severity = {
+            protan = 0,                -- Severity [0,1] for protan (red)
+            deutan = 0,                -- Severity [0,1] for deutan (green)
+            tritan = 0,                -- Severity [0,1] for tritan (blue)
+          },
+        },
+        styles = {       -- Style to be applied to different syntax groups
+          comments = "italic", -- Value is any valid attr-list value `:help attr-list`
+          conditionals = "NONE",
+          constants = "NONE",
+          functions = "NONE",
+          keywords = "NONE",
+          numbers = "NONE",
+          operators = "NONE",
+          strings = "NONE",
+          types = "NONE",
+          variables = "NONE",
+        },
+        inverse = { -- Inverse highlight for different types
+          match_paren = false,
+          visual = false,
+          search = false,
+        },
+        modules = { -- List of various plugins and additional options
+          -- ...
+        },
+      },
+      palettes = {},
+      specs = {},
+      groups = {},
     })
-    vim.cmd([[colorscheme everforest]])
-  end,
+
+    vim.cmd("colorscheme nordfox")
+  end
 }
