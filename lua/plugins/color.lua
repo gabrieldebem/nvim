@@ -1,50 +1,52 @@
 return {
-  'marko-cerovac/material.nvim',
+  "EdenEast/nightfox.nvim",
+  priority = 1000,
+  lazy = false,
   config = function()
-    require('material').setup({
-      contrast = {
-        terminal = false,            -- Enable contrast for the built-in terminal
-        sidebars = false,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
-        floating_windows = false,    -- Enable contrast for floating windows
-        cursor_line = false,         -- Enable darker background for the cursor line
-        lsp_virtual_text = false,    -- Enable contrasted background for lsp virtual text
-        non_current_windows = false, -- Enable contrasted background for non-current windows
-        filetypes = {},              -- Specify which filetypes get the contrasted (darker) background
+    require('nightfox').setup({
+      options = {
+        -- Compiled file's destination location
+        compile_path = vim.fn.stdpath("cache") .. "/nightfox",
+        compile_file_suffix = "_compiled", -- Compiled file suffix
+        transparent = false,           -- Disable setting background
+        terminal_colors = true,        -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
+        dim_inactive = false,          -- Non focused panes set to alternative background
+        module_default = true,         -- Default enable value for modules
+        colorblind = {
+          enable = false,              -- Enable colorblind support
+          simulate_only = false,       -- Only show simulated colorblind colors and not diff shifted
+          severity = {
+            protan = 0,                -- Severity [0,1] for protan (red)
+            deutan = 0,                -- Severity [0,1] for deutan (green)
+            tritan = 0,                -- Severity [0,1] for tritan (blue)
+          },
+        },
+        styles = {       -- Style to be applied to different syntax groups
+          comments = "italic", -- Value is any valid attr-list value `:help attr-list`
+          conditionals = "NONE",
+          constants = "NONE",
+          functions = "NONE",
+          keywords = "NONE",
+          numbers = "NONE",
+          operators = "NONE",
+          strings = "NONE",
+          types = "NONE",
+          variables = "NONE",
+        },
+        inverse = { -- Inverse highlight for different types
+          match_paren = false,
+          visual = false,
+          search = false,
+        },
+        modules = { -- List of various plugins and additional options
+          -- ...
+        },
       },
-
-      styles = { -- Give comments style such as bold, italic, underline etc.
-        comments = {},
-        strings = {},
-        keywords = {},
-        functions = {},
-        variables = {},
-        operators = {},
-        types = {},
-      },
-
-      plugins = {},
-
-      disable = {
-        colored_cursor = false, -- Disable the colored cursor
-        borders = true,         -- Disable borders between vertically split windows
-        background = false,     -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
-        term_colors = false,    -- Prevent the theme from setting terminal colors
-        eob_lines = false       -- Hide the end-of-buffer lines
-      },
-
-      high_visibility = {
-        lighter = false, -- Enable higher contrast text for lighter style
-        darker = false   -- Enable higher contrast text for darker style
-      },
-
-      lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
-
-      async_loading = true,      -- Load parts of the theme asynchronously for faster startup (turned on by default)
-
-      custom_colors = nil,       -- If you want to override the default colors, set this to a function
-
-      custom_highlights = {},    -- Overwrite highlights with your own
-      vim.cmd 'colorscheme material'
+      palettes = {},
+      specs = {},
+      groups = {},
     })
+
+    vim.cmd("colorscheme nordfox")
   end
 }
