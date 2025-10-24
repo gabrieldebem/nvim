@@ -1,87 +1,50 @@
--- lua/plugins/rose-pine.lua
 return {
-  "rose-pine/neovim",
-  name = "rose-pine",
+  'marko-cerovac/material.nvim',
   config = function()
-    require("rose-pine").setup({
-      variant = "auto",    -- auto, main, moon, or dawn
-      dark_variant = "moon", -- main, moon, or dawn
-      dim_inactive_windows = false,
-      extend_background_behind_borders = true,
-
-      enable = {
-        terminal = true,
-        legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
-        migrations = true,        -- Handle deprecated options automatically
+    require('material').setup({
+      contrast = {
+        terminal = false,            -- Enable contrast for the built-in terminal
+        sidebars = false,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
+        floating_windows = false,    -- Enable contrast for floating windows
+        cursor_line = false,         -- Enable darker background for the cursor line
+        lsp_virtual_text = false,    -- Enable contrasted background for lsp virtual text
+        non_current_windows = false, -- Enable contrasted background for non-current windows
+        filetypes = {},              -- Specify which filetypes get the contrasted (darker) background
       },
 
-      styles = {
-        bold = true,
-        italic = true,
-        transparency = false,
+      styles = { -- Give comments style such as bold, italic, underline etc.
+        comments = {},
+        strings = {},
+        keywords = {},
+        functions = {},
+        variables = {},
+        operators = {},
+        types = {},
       },
 
-      groups = {
-        border = "muted",
-        link = "iris",
-        panel = "surface",
+      plugins = {},
 
-        error = "love",
-        hint = "iris",
-        info = "foam",
-        note = "pine",
-        todo = "rose",
-        warn = "gold",
-
-        git_add = "foam",
-        git_change = "rose",
-        git_delete = "love",
-        git_dirty = "rose",
-        git_ignore = "muted",
-        git_merge = "iris",
-        git_rename = "pine",
-        git_stage = "iris",
-        git_text = "rose",
-        git_untracked = "subtle",
-
-        h1 = "iris",
-        h2 = "foam",
-        h3 = "rose",
-        h4 = "gold",
-        h5 = "pine",
-        h6 = "foam",
+      disable = {
+        colored_cursor = false, -- Disable the colored cursor
+        borders = true,         -- Disable borders between vertically split windows
+        background = false,     -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
+        term_colors = false,    -- Prevent the theme from setting terminal colors
+        eob_lines = false       -- Hide the end-of-buffer lines
       },
 
-      palette = {
-        -- Override the builtin palette per variant
-        -- moon = {
-        --     base = '#18191a',
-        --     overlay = '#363738',
-        -- },
+      high_visibility = {
+        lighter = false, -- Enable higher contrast text for lighter style
+        darker = false   -- Enable higher contrast text for darker style
       },
 
-      -- NOTE: Highlight groups are extended (merged) by default. Disable this
-      -- per group via `inherit = false`
-      highlight_groups = {
-        -- Comment = { fg = "foam" },
-        -- StatusLine = { fg = "love", bg = "love", blend = 15 },
-        -- VertSplit = { fg = "muted", bg = "muted" },
-        -- Visual = { fg = "base", bg = "text", inherit = false },
-      },
+      lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
 
-      before_highlight = function(group, highlight, palette)
-        -- Disable all undercurls
-        -- if highlight.undercurl then
-        --     highlight.undercurl = false
-        -- end
-        --
-        -- Change palette colour
-        -- if highlight.fg == palette.pine then
-        --     highlight.fg = palette.foam
-        -- end
-      end,
+      async_loading = true,      -- Load parts of the theme asynchronously for faster startup (turned on by default)
+
+      custom_colors = nil,       -- If you want to override the default colors, set this to a function
+
+      custom_highlights = {},    -- Overwrite highlights with your own
+      vim.cmd 'colorscheme material'
     })
-
-    vim.cmd("colorscheme rose-pine")
   end
 }

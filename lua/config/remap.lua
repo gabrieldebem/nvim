@@ -14,10 +14,12 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
+vim.keymap.set('n', '<leader>fs', "<cmd>lua require(\"material.functions\").find_style()<cr>", { desc = "[F]ind [S]tyle" })
+
 -- Lsp keymap
 nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+nmap('gd', "<cmd>Telescope lsp_definitions<CR>", '[G]oto [D]efinition')
 nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
 nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
 nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')

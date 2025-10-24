@@ -4,7 +4,7 @@ return {
     build = ':TSUpdate',
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "php", "dart", "markdown", "html", "python", "go" },
+        ensure_installed = { "lua", "php", "dart", "markdown", "html", "python", "go", "java", "c_sharp" },
         sync_install = true,
         highlight = {
           enable = true,
